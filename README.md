@@ -2,6 +2,17 @@
 
 **Capstone Course:** [Complete a Case Study](https://www.google.com/url?q=https://www.coursera.org/learn/google-data-analytics-capstone)
 
+**Table of Contents**
+- Introduction
+- Citations & Sources
+- Background
+- Ask
+- Prepare
+- Process
+- Analyze
+- Share
+- Act
+
 # **Introduction**
 
 In this case study, I will undertake various tasks typical of a junior data analyst at the fictional company, Cyclistic. I will use the data analysis process steps of Ask, Prepare, Process, Analyze, Share, and Act to address the key business questions.
@@ -10,7 +21,7 @@ In this case study, I will undertake various tasks typical of a junior data anal
 
 **Source:** [Divvy Trip Data](https://divvy-tripdata.s3.amazonaws.com/index.html) files: [Divvy Trips 2019 (Quarter 1)](https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2019_Q1.zip) and [Divvy Trips 2020 (Quarter 1)](https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2020_Q1.zip)
 
-**Data Visualizations:** [Tableau](https://public.tableau.com/app/profile/joseph.fergus7805/viz/bike-trip-case-study/Dashboard1#1) & [R Studio](https://posit.cloud/content/8703911?idle=1726802544442)
+**Data Visualizations:** [Tableau](https://public.tableau.com/authoring/Google-Data-Analytics-Capstone-Cyclistic-Case-Study/Dashboard1#1) & [R Studio](https://posit.cloud/content/8703911?idle=1726802544442)
 
 # **Background**
 
@@ -304,36 +315,127 @@ all_trips_v2 <- all_trips[!(all_trips$start_station_name == "HQ QR" | all_trips$
 ```r
 # Descriptive analysis on ride_length (all figures in seconds)
 mean(all_trips_v2$ride_length) #straight average (total ride length / rides)
+[1] 1189.459
 median(all_trips_v2$ride_length) #midpoint number in the ascending array of ride lengths
+[1] 539
 max(all_trips_v2$ride_length) #longest ride
+[1] 10632022
 min(all_trips_v2$ride_length) #shortest ride
+[1] 1
 
 # You can condense the four lines above to one line using summary() on the specific attribute
 summary(all_trips_v2$ride_length)
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+       1      331      539     1189      912 10632022 
 
 # Compare members and casual users
 aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = mean)
+all_trips_v2$member_casual all_trips_v2$ride_length
+1                     casual                5372.7839
+2                     member                 795.2523
 aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = median)
+all_trips_v2$member_casual all_trips_v2$ride_length
+1                     casual                     1393
+2                     member                      508
 aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = max)
+all_trips_v2$member_casual all_trips_v2$ride_length
+1                     casual                 10632022
+2                     member                  6096428
 aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual, FUN = min)
-
+all_trips_v2$member_casual all_trips_v2$ride_length
+1                     casual                        2
+2                     member                        1
 # See the average ride time by each day for members vs casual users
 aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual + all_trips_v2$day_of_week, FUN = mean)
-
+all_trips_v2$member_casual all_trips_v2$day_of_week all_trips_v2$ride_length
+1                      casual                   Friday                6090.7373
+2                      member                   Friday                 796.7338
+3                      casual                   Monday                4752.0504
+4                      member                   Monday                 822.3112
+5                      casual                 Saturday                4950.7708
+6                      member                 Saturday                 974.0730
+7                      casual                   Sunday                5061.3044
+8                      member                   Sunday                 972.9383
+9                      casual                 Thursday                8451.6669
+10                     member                 Thursday                 707.2093
+11                     casual                  Tuesday                4561.8039
+12                     member                  Tuesday                 769.4416
+13                     casual                Wednesday                4480.3724
+14                     member                Wednesday                 711.9838
 # Notice that the days of the week are out of order. Let's fix that.
 all_trips_v2$day_of_week <- ordered(all_trips_v2$day_of_week, levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
-
 # Now, let's run the average ride time by each day for members vs casual users
 aggregate(all_trips_v2$ride_length ~ all_trips_v2$member_casual + all_trips_v2$day_of_week, FUN = mean)
-
+all_trips_v2$member_casual all_trips_v2$day_of_week all_trips_v2$ride_length
+1                      casual                   Sunday                5061.3044
+2                      member                   Sunday                 972.9383
+3                      casual                   Monday                4752.0504
+4                      member                   Monday                 822.3112
+5                      casual                  Tuesday                4561.8039
+6                      member                  Tuesday                 769.4416
+7                      casual                Wednesday                4480.3724
+8                      member                Wednesday                 711.9838
+9                      casual                 Thursday                8451.6669
+10                     member                 Thursday                 707.2093
+11                     casual                   Friday                6090.7373
+12                     member                   Friday                 796.7338
+13                     casual                 Saturday                4950.7708
+14                     member                 Saturday                 974.0730
 # analyze ridership data by type and weekday
 all_trips_v2 %>% 
-  mutate(weekday = wday(started_at, label = TRUE)) %>%  #creates weekday field using wday()
-  group_by(member_casual, weekday) %>%  #groups by usertype and weekday
-  summarise(number_of_rides = n()							#calculates the number of rides and average duration 
-            ,average_duration = mean(ride_length)) %>% 		# calculates the average duration
-  arrange(member_casual, weekday)								# sorts
++   mutate(weekday = wday(started_at, label = TRUE)) %>%  #creates weekday field using wday()
++   group_by(member_casual, weekday) %>%  #groups by usertype and weekday
++   summarise(number_of_rides = n()							#calculates the number of rides and average duration 
++             ,average_duration = mean(ride_length)) %>% 		# calculates the average duration
++   arrange(member_casual, weekday)								# sorts
+`summarise()` has grouped output by 'member_casual'. You can override using the `.groups` argument.
+# A tibble: 14 × 4
+# Groups:   member_casual [2]
+   member_casual weekday number_of_rides average_duration
+   <chr>         <ord>             <int>            <dbl>
+ 1 casual        Sun               18652            5061.
+ 2 casual        Mon                5591            4752.
+ 3 casual        Tue                7311            4562.
+ 4 casual        Wed                7690            4480.
+ 5 casual        Thu                7147            8452.
+ 6 casual        Fri                8013            6091.
+ 7 casual        Sat               13473            4951.
+ 8 member        Sun               60197             973.
+ 9 member        Mon              110430             822.
+10 member        Tue              127974             769.
+11 member        Wed              121902             712.
+12 member        Thu              125228             707.
+13 member        Fri              115168             797.
+14 member        Sat               59413             974.
+```
 
+**Findings**
+
+**All riders (both casual and member):**
+- Mean (seconds) - 1189
+- Median (seconds) - 539
+- Max (seconds) - 10632022
+- Min (seconds) - 1
+
+**Comparison (casual vs member):**
+
+**Mean (seconds)**
+- Casual - 5373
+- Member - 795
+
+**Median (seconds)**
+- Casual - 1393
+- Member - 508
+
+**Max (seconds)**
+- Casual - 10632022
+- Member - 6096428
+
+**Min (seconds)**
+- Casual - 2
+- Member - 1
+
+```r
 # Let's visualize the number of rides by rider type
 all_trips_v2 %>% 
   mutate(weekday = wday(started_at, label = TRUE)) %>% 
@@ -354,6 +456,7 @@ all_trips_v2 %>%
   ggplot(aes(x = weekday, y = average_duration, fill = member_casual)) +
   geom_col(position = "dodge")
 ```
+
 
 7. Export Summpary File For Further Analysis
 
@@ -415,9 +518,20 @@ ggplot(summary_data, aes(x = member_casual, y = max_ride_length, fill = member_c
 
 While we have some initial visuals from R Studio, let's enhance our analysis by creating additional, more sophisticated visualizations in Tableau, which is specifically designed for this purpose.
 
+In this case, I made 4 graphs to compare the average daily ride lengths. With both a stacked line graph to show trends and a bar chart to show the average ride length for each day of the week to see the increased amount. I then created a chart to visually see the minimum and maximum average ride lengths of both member and casual riders.
 
+![2024-09-19 22_24_42-Window](https://github.com/user-attachments/assets/9fd3a000-dca5-45e7-82f9-299285b70aef)
+
+Additionally, I took the same CSV into google sheets to quickly do a further visual analysis that worked better for floating bar charts on the minimum and maximum averages as well as the shorted and longest ride length per user time
+
+![2024-09-19 23_03_45-Window](https://github.com/user-attachments/assets/83744ef4-de73-461f-b578-e4653c47ed91)
+![2024-09-19 23_02_32-Window](https://github.com/user-attachments/assets/d0a341f6-25a6-4e33-9e88-bbb404e286da)
 
 # **Share**
+
+Now time to share the findings with Google Sheets a presentation
+
+**[Case Study Presentation](https://docs.google.com/presentation/d/1O6cmXXAkFVgYleRydRlN0Ze1TXTKl1dPoGuuK3VBxw0/pub?start=true&loop=true&delayms=5000)**
 
 # **Act**
 
@@ -426,8 +540,8 @@ While we have some initial visuals from R Studio, let's enhance our analysis by 
 Findings from the data:
 
 Highest Average Ride Lengths:
-*  **Casual riders:** Thursdays, with an average ride length of nearly 2 hours (notable outlier). Friday is the second highest.
-*  **Member riders:** Slightly higher average ride lengths on weekends.
+*  **Casual riders:** Thursdays, with an average ride length of >2 hours (notable outlier). Friday is the second highest.
+*  **Member riders:** Slightly higher average ride lengths on weekends by >0.25 hours.
 
 Daily Percentile Average Ride Lengths:
 *  Casual Riders are approximately 75% or higher.
@@ -437,6 +551,14 @@ Growth in Rider Numbers (2020):
 *  Both casual and member riders have increased.
 *  Higher percentage growth in casual riders, with fewer opting for membership.
 
+Shortest to Longest Ride Length Range
+*  Casuals went from 0.0006 hours to 2955.34 hours
+*  Members went from 0.0003 hours to 1693.45 hours
+
+Average Min & Max Ride Length (Casual vs Member)
+*  Casuals ranged from 1.245 hours to 2.348 hours
+*  Members ranged from 0.196 hours to 0.27 hours
+
 **Recommendations**
 
 Marketing wise in relation to the first phase, I have several recommendations with a focus on casual riders who have a behavior that mimics that of a member in terms of ride length and consistent daily usage. These users will have a ride length between over Min time length (>=X) and under a Max time length of (<=Y)
@@ -445,7 +567,7 @@ Marketing wise in relation to the first phase, I have several recommendations wi
   * Especially around Thursday and Friday when the average casual rider duration length is also at its highest.
 
 * Make aware to these casual riders the benefits of becoming a member. Such as cost saving by being on a subscription plan and accessibility and convenience for getting to their common routes of work, school, or other daily activities.
-  * Especially focus on those who are spending usually using more consistent and might be spending more.
+  * Mainly focus on those who are spending usually using more consistent and might be spending more.
   * I would recommend targeted social media on these specific riders if possible using the rider’s ID.
 
 * Focus marketing around high density areas with the most casual riders. Preferably education institutions, businesses, malls, gyms, bike trails, concerts and other common gathering places that bike-share riders use.
@@ -457,10 +579,10 @@ Marketing wise in relation to the first phase, I have several recommendations wi
 * Use Net Promoter Scores and see which members score in the 90% or higher range as advertise to them a discount reward for recruiting new members with prompt codes.
     * Especially around weekends when members will get the advertisements and then promote to the casual riders when it comes to the weekdays when the casuals increase their usage.
 
-
-
-
-
 **Conclusion**
+
+Our analysis reveals distinct usage patterns between casual riders and annual members at Cyclistic. Casual riders exhibit significantly longer ride lengths, particularly on Thursdays and Fridays, and have shown substantial growth from 2019 to 2020. To capitalize on this, targeted marketing strategies should focus on converting high-usage casual riders into members by highlighting the benefits of membership, such as cost savings and convenience. By leveraging data-driven insights and strategic advertising, Cyclistic can effectively increase its annual membership base and drive future growth.
+
+**Outro**
 
 I appreciate all who took the time out of their day to review my case study that guided me through the full process of data analysis and how it relates to real world use using tools such as Google Sheets, R Studio, and Tableau. And eagerly look forward to adding this certificate to my resume and seeing what new opportunities may bring me in my career.
