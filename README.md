@@ -540,8 +540,8 @@ Now time to share the findings with Google Sheets a presentation
 Findings from the data:
 
 Highest Average Ride Lengths:
-*  **Casual riders:** Thursdays, with an average ride length of >2 hours (notable outlier). Friday is the second highest.
-*  **Member riders:** Slightly higher average ride lengths on weekends by >0.25 hours.
+*  Casual riders: Thursdays, with an average ride length of >2 hours (notable outlier). Friday is the second highest.
+*  Member riders: Slightly higher average ride lengths on weekends by >0.25 hours.
 
 Daily Percentile Average Ride Lengths:
 *  Casual Riders are approximately 75% or higher.
