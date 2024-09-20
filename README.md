@@ -8,9 +8,9 @@ In this case study, I will undertake various tasks typical of a junior data anal
 
 # **Citations & Sources:**
 
-**Source:** [Divvy Trip Data](https://divvy-tripdata.s3.amazonaws.com/index.html) {[files: Divvy Trips 2019 (Quarter 1)](https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2019_Q1.zip) and [Divvy Trips 2020 (Quarter 1)](https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2020_Q1.zip)}
+**Source:** [Divvy Trip Data](https://divvy-tripdata.s3.amazonaws.com/index.html) files: [Divvy Trips 2019 (Quarter 1)](https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2019_Q1.zip) and [Divvy Trips 2020 (Quarter 1)](https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2020_Q1.zip)
 
-**Data Visualizations:** [Tableau](https://public.tableau.com/app/profile/joseph.fergus7805/viz/bike-trip-case-study/Dashboard1#1) & R Studio ***8888888888888888888888888888888888
+**Data Visualizations:** [Tableau](https://public.tableau.com/app/profile/joseph.fergus7805/viz/bike-trip-case-study/Dashboard1#1) & [R Studio](https://posit.cloud/content/8703911?idle=1726802544442)
 
 # **Background**
 
@@ -93,3 +93,4 @@ The process involves evaluating IDs, locations, ride lengths, and dates. Filters
 **Data Organization**
 The two files used have the naming convention Divvy_Trips_YYYY_Q1. This includes the months of January, February, and March. 2019 used several different columns with some being the same as 2020 but with different column names that were edited later to match so that the two years could be compared. Such examples were “from_station_id” in 2019 became “start_station_id”
 
+![file-structure](https://github.com/user-attachments/assets/448ebb3d-0402-4b99-a153-b7bb444c3f21)
