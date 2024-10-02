@@ -21,7 +21,7 @@ In this case study, I will undertake various tasks typical of a junior data anal
 
 **Source:** [Divvy Trip Data](https://divvy-tripdata.s3.amazonaws.com/index.html) files: [Divvy Trips 2019 (Quarter 1)](https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2019_Q1.zip) and [Divvy Trips 2020 (Quarter 1)](https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2020_Q1.zip)
 
-**Data Visualizations:** [Tableau](https://public.tableau.com/authoring/Google-Data-Analytics-Capstone-Cyclistic-Case-Study/Dashboard1#1) & [R Studio](https://posit.cloud/content/8703911?idle=1726802544442)
+**Data Visualizations:** [Tableau](https://public.tableau.com/app/profile/joseph.fergus7805/viz/Google-Data-Analytics-Capstone-Cyclistic-Case-Study/Dashboard1) & [R Studio](https://posit.cloud/content/8703911?idle=1726802544442)
 
 # **Background**
 
